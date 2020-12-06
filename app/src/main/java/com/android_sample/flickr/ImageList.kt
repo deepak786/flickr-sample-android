@@ -1,5 +1,6 @@
 package com.android_sample.flickr
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -7,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.android_sample.flickr.databinding.ActivityImageListBinding
+import com.android_sample.flickr.models.Photo
 
 class ImageList : AppCompatActivity(), RecyclerItemClickListener {
     private lateinit var adapter: ImageListAdapter
@@ -47,6 +49,10 @@ class ImageList : AppCompatActivity(), RecyclerItemClickListener {
     }
 
     override fun onRecyclerItemClick(position: Int, obj: Any?) {
-        // TODO
+        if (obj is Photo) {
+            val intent = Intent(this, FullScreenImage::class.java)
+            intent.putExtra(FullScreenImage.IMAGE_INTENT_EXTRA, obj.getImageUrl())
+            startActivity(intent)
+        }
     }
 }
